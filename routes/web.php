@@ -24,12 +24,18 @@ Route::get('/', function () {
     ]);
 });
 
+Route::resource('project', \App\Http\Controllers\ProjectController::class);
+Route::prefix('project')->name('project')->group(function () {
+});
+
+Route::get('/test', [\App\Http\Controllers\ProjectController::class, 'index']);
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->name('admin.')->prefix('admin')->group(function () {
-    Route::get('/dashboard', function () {
+    Route::get('dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
 });
